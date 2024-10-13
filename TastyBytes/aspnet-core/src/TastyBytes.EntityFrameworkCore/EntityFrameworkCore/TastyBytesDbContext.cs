@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TastyBytes.Recipes;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -51,6 +53,10 @@ public class TastyBytesDbContext :
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
+
+    // Tasty Bytes
+    public DbSet<Recipe> Recipes { get; set; }
+
     #endregion
 
     public TastyBytesDbContext(DbContextOptions<TastyBytesDbContext> options)
@@ -82,5 +88,16 @@ public class TastyBytesDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+
+
+
+
+
+        builder.Entity<Recipe>(b =>
+        {
+            b.ToTable(TastyBytesConsts.DbTablePrefix + "Recipes", TastyBytesConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            //...
+        });
     }
 }
