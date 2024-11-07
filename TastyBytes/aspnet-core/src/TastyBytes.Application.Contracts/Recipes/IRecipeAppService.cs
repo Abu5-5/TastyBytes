@@ -14,6 +14,8 @@ namespace TastyBytes.Recipes
             PagedAndSortedResultRequestDto>
     {
 
+        Task<List<RecipeDto>> GetRecentRecipesAsync(int count = 3);
+
         // Create R(single + List) Update, Delete =>
         // C      R                U       D
     }
